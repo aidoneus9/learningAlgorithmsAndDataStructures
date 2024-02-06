@@ -35,8 +35,8 @@ module.exports = reverse;
 // <14. String Reversal, Solution #2>
 // 1. Create an empty string called 'reversed'
 // 2. for each character in the provided string, take the character and add it to the start of 'reversed'
-// 4. Return the variable 'reversed'
-/*
+// 3. Return the variable 'reversed'
+
 function reverse(str) {
   let reversed = "";
 
@@ -46,15 +46,19 @@ function reverse(str) {
   // for of syntax
   for (let character of str) {
     reversed = character + reversed;
+    // debugger;
   }
 
   return reversed;
 }
 
+// reverse("asdf");
+
 module.exports = reverse;
-*/
+
 // So in this case, we are iterating through all of the characters of the string variable right here. So we're going to iterate through each character of string one by one and set each character equal to this temporary variable character. We then take that character added on to the start of the string reversed, and then after the entire for loop we return the string reversed
 
+/*
 // <15. String Reversal, Solution #3>
 function reverse(str) {
   return str.split("").reduce((rev, char) => char + rev, "");
@@ -66,3 +70,14 @@ module.exports = reverse;
 // 1. arraw function
 // 2. starting initial value for our function, which I'm gonna pass in an empty string
 // Now, whenever reduce runs, it's going to take this starting argument. It's going to pass it into this arrow function as the first argument, and then whatever gets returned from that inner function will be then used as the starting argument for every successive run of the function. In total, the function runs one time for every element within the array right here. So in other words, we can really picture that this first value or the first argument that is passed into reduce is our reversed string.
+*/
+/*
+function reverse(str) {
+  debugger;
+  return str.split("").reduce((rev, char) => char + rev, "");
+}
+
+reverse("asdf"); // if you want to use a debugger, make sure that you call the function
+
+module.exports = reverse;
+*/
