@@ -68,3 +68,43 @@ function buildCharMap(str) {
 }
 
 module.exports = anagrams;
+
+// <35. Another Way to Tackle Anagrams>
+
+// 🧀 sort()
+const numbers = [10, 30, 5, -90, 10000];
+
+numbers.sort(); // [-90, 10, 10000, 30, 5]
+// so when we sort an array, it will take all the elements in the array, and your JavaScript runtime will do its best to figure out how to somehow meaningfully sort the characters or I should say, the elements within that array.
+
+const characters = ["z", "c", "b", "d", "y"];
+
+characters.sort(); // ['b' ,'c', 'd', 'y', 'z']
+// 👉 end up with alphabetical order
+
+// clean up both strings by replacing or removing any spaces or punctuation -> tolowercase()
+// sort both strings
+// if the two sorted strings are then completely identical, then we can say that we have an anagram
+// don't even have to do some for loop or iteration or anything like that to look at every single string
+function anagrams(stringA, stringB) {
+  // Compare the 2 strings
+  return cleanString(stringA) === cleanString(stringB);
+}
+
+// Helper function
+function cleanString(str) {
+  // return str.replace(/[^\w]/g, "").toLowerCase();
+  // ⚠️ Before we attempt to sort this thing, remember we just looked at the sort method that is a method that BELONGS TO ARRAYS, NOT STRINGS. So we do have to temporarily turn the string into an array, sort it, and then turn it back into a string.
+  return str.replace(/[^\w]/g, "").toLowerCase().split("").sort().join("");
+}
+
+// Example
+const str = "Hello There!";
+const str2 = "There! Hello!";
+
+str.replace(/[^\w]/g, "").toLowerCase().split("").sort().join("");
+// eeehhllort
+str2.replace(/[^\w]/g, "").toLowerCase().split("").sort().join(""); // eeehhllort
+
+"eeehhllort" === "eeehhllort"; // True 👈 So this is essentially what we're taking advantage of here. We don't have to compare this thing character by character. We can just say, hey, is this string identical to this string?
+module.exports = anagrams;
