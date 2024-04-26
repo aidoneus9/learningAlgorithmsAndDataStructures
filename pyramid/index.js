@@ -37,6 +37,7 @@ Math.floor(5 / 2); // 2
 Math.floor(5 / 2) + 1; // 3
 Math.floor(5 / 2) - 1; // 1
 
+// <45. Pyramid Solution #1>
 function pyramid(n) {
   const midpoint = Math.floor((2 * n - 1) / 2); // midpoint index
 
@@ -53,6 +54,30 @@ function pyramid(n) {
 
     console.log(level);
   }
+}
+
+module.exports = pyramid;
+
+// <46. Pyramid Solution #2>
+function pyramid(n, row = 0, level = "") {
+  // Base case
+  if (row === n) {
+    return;
+  }
+
+  if (level.length === 2 * n - 1) {
+    console.log(level);
+    return pyramid(n, row + 1); // ✍️ we are definitely going to place the return statement here to make sure that we don't do any other work inside this function
+  }
+
+  const midpoint = Math.floor((2 * n - 1) / 2);
+  let add;
+  if (midpoint - row <= level.length && midpoint + row >= level.length) {
+    add = "#";
+  } else {
+    add = " ";
+  }
+  pyramid(n, row, level + add);
 }
 
 module.exports = pyramid;
