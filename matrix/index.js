@@ -39,7 +39,7 @@ const arr = [];
 arr[3] = "Hi there!";
 
 arr; // [null, null, null, "Hi there!"]
-// We can assign values to indices inside of an array that have not been initialized. I did not have to push this value in or I did not have to unshift the value into the array. I can just freely assign any value to any index inside of an array that I want.
+// ✍️ We can assign values to indices inside of an array that have not been initialized. I did not have to push this value in or I did not have to unshift the value into the array. I can just freely assign any value to any index inside of an array that I want.
 
 function matrix(n) {
   const results = [];
