@@ -7,7 +7,7 @@
 // forms the first ten entries of the fibonacci series.
 // Example:
 //   fib(4) === 3
-/*
+
 // <56. The Fibonacci Series>
 function fib(n) {
   const fibonacci = [];
@@ -44,7 +44,7 @@ module.exports = fib;
 // ⌛ Runtime complexity
 // cerebral thought: for every increase n, we have to calculate one additional number -> linear runtime
 // shortcut way: we've got a simple for loop and it looks like we are always starting out at some fixed number, always incrementing by one, and we're always incrementing up to this fixed target. It looks like we got a for loop that iterates over this kind of closed set one for one. -> linear runtime
-*/
+
 // <58. Fibonacci Series Recursive Solution>
 // 🔁
 function fib(n) {
@@ -77,7 +77,20 @@ module.exports = fib;
 function memoize(fn) {
   // declare a little object that is going to store all of our calls to the fast version of our function
   const cache = {};
-  return function () {};
+  return function (...args) {
+    // the actual caching part
+    if (cache[args]) {
+      return cache[args];
+    }
+    // 🤔 Have we ever called this function with this particular set of arguments before, and stored the result in this cache object? If we have, then just return that right now and don't do any other work and especially don't call the original function.
+
+    const result = fn.apply(this, args);
+    // whenever we call a function with an array of arguments which this is right here, we have to use the apply helper
+    cache[args] = result;
+
+    return result;
+  };
+  // ...args: I don't know how many arguments this function will be called with. Just take all the argumennts and assign them as an array to this variable called args(defensive coding).
 }
 
 function slowFib(n) {
@@ -91,3 +104,34 @@ function slowFib(n) {
 const fib = memoize(slowFib);
 // so we take our slow function, we're going to pass it to memoize and then that's going to return a new function, assign it to fib, and then we will export that memoized version from this file
 module.exports = fib;
+
+// ✍️ Quick review
+// Calling slowFib all the time recursively is extremely slow. We need some way to improve the performance. So we came up with the idea of saying before we actually call the slowFib function, we are going to create a little data store or a little cash object.
+// 🗝️ the keys of that cash object will be the arguments(98) that we were trying to call slowFib width. And remember that the arguments when I say arguments, I'm talking about like some number here, 0, 1, 2, 3, 4, 5, whatever it is.
+// So if we've never called slowFib with a particular number n before, then we will call slowFib, then we'll take n and the result and store it in this cash object(89-91).
+// But if we have called slowFib before with some give value n, then we'll look into our cash object, we'll find that and then return it instead.
+// So the whole idea here is that we are just avoiding calling the same function multiple times with one or with the same set of arugments each time.
+// ➕
+
+function fib(n) {
+  if (n < 2) {
+    return n;
+  }
+
+  return fib(n - 1) + fib(n - 2);
+}
+
+fib = memoize(fib);
+// The reason this is important is that when we do this right here(126) and make sure that when we actually execute the original function(118-124) and attempt to call fib recursively, these fib calls(123) right here are not a reference directly to this function anymore. It's now a reference to the memoized version of that function(126).
+// You do have to make sure that when you recursively call the function you are calling the memoized version and not the original non-memoized version.
+
+function slowFib(n) {
+  if (n < 2) {
+    return n;
+  }
+
+  return slowFib(n - 1) + slowFib(n - 2);
+}
+
+const fib = memoize(slowFib);
+// If we had been calling slowFib from inside this thing, fib contains a reference to the memoized version. slowFib is always the slow version. So even though we memoize this thing, when we call it recursively, it would be calling the slow version of fib, which would entirely defeat the purpose of what we were trying to do. We would be calling the wrong version of the function.
