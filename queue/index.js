@@ -27,7 +27,7 @@
 class Queue {
   constructor() {
     this.data = [];
-    // inside this constructor(28), we're going to create a new array and assign it as a property to our queue instance(data is a name).
+    // inside this constructor(28), we're going to create a new array and assign it as a property to our queue instance(data is a name)
   }
 
   add(record) {
@@ -37,10 +37,10 @@ class Queue {
 
   remove(record) {
     return this.data.pop(record);
-    // return; remove is supposed to not only remove that record from the end of the queue, but obviously we probably want to return it as well so we can WORK WITH THAT RECORD THAT WE JUST REMOVED.
+    // return; remove is supposed to not only remove that record from the end of the queue, but obviously we probably want to return it as well so we can WORK WITH THAT RECORD THAT WE JUST REMOVED
   }
 }
-// Whenever we create a new instance of a class, if we define a function called constructor inside of it, that constructor will automatically be called when we create a new instance.
+// whenever we create a new instance of a class, if we define a function called constructor inside of it, that constructor will automatically be called when we create a new instance
 module.exports = Queue;
 
 const arr = [2, 3, 4];
