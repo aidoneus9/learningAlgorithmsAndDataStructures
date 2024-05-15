@@ -65,4 +65,21 @@ const list = new LinkedList();
 list.head = new Node(10);
 // now our LinkedList has a head node associated with it, and now this head can have additional nodes linked on to it, which we could associate by making new nodes(43).
 
+// <75. Linked Lists's InsertFirst>
+// 📎 test.js -> delete '.skip'
+// 📎 documentation file: insertFirst
+
+class Node {
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+}
+
 module.exports = { Node, LinkedList };
