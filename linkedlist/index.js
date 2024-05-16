@@ -38,7 +38,6 @@ const n2 = new this.Node("There", n1);
 // the second node takes in the string 'There' as the first argument, and then as a second argument it takes in n1. When the constructor runs with n1, it's going to set up n2 and on n2, n1 is going to be set up as the next property.
 // -> after all this code right here runs, we would imagine that this right here is n2
 n2.next; // returns n1
-*/
 
 class Node {
   constructor(data, next = null) {
@@ -68,7 +67,10 @@ list.head = new Node(10);
 // <75. Linked Lists's InsertFirst>
 // 📎 test.js -> delete '.skip'
 // 📎 documentation file: insertFirst
+// -> when we create a new linked list, it starts off completely empty; we can use this insertFirst method to sort of initialize the linked list and get some initial node inside of it
+// ⚠️ this is supposed to be an insert method, NOT AN OVERWRITE METHOD; if it turns out that the linked list already has a node associated with the head property, we should not be overwriting that node.
 
+// <76. Solving Insert First>
 class Node {
   constructor(data, next = null) {
     this.data = data;
@@ -80,6 +82,61 @@ class LinkedList {
   constructor() {
     this.head = null;
   }
+
+  insertFirst(data) {
+    const node = new Node(data, this.head);
+    this.head = node;
+    this.head = new Node(data, this.head);
+  }
 }
 
 module.exports = { Node, LinkedList };
+
+// ✍️
+class Node {
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  insertFirst(data) {
+    const node = new Node(data, this.head);
+    this.head = node;
+    this.head = new Node(data, this.head);
+  }
+}
+
+const nodeOne = new Node(5);
+const list = new LinkedList();
+list.head = nodeOne; // {"data":5,"next":null}
+// initialize the list with this nodeOne assigned to the head -> this time when we call insertFirst, do not accidentally overwrite any data
+list.insertFirst(15);
+list; // {"head":{"data":15,"next":{"data":5,"next":null}}}
+*/
+
+// <77. Sizing a List>
+// <78. Solve for Size>
+class Node {
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  insertFirst(data) {
+    const node = new Node(data, this.head);
+    this.head = node;
+    this.head = new Node(data, this.head);
+  }
+}
