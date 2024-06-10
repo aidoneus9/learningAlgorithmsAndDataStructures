@@ -84,8 +84,8 @@ class LinkedList {
   }
 
   insertFirst(data) {
-    const node = new Node(data, this.head);
-    this.head = node;
+    // const node = new Node(data, this.head);
+    // this.head = node;
     this.head = new Node(data, this.head);
   }
 }
@@ -97,7 +97,7 @@ class Node {
   constructor(data, next = null) {
     this.data = data;
     this.next = next;
-  }
+   }
 }
 
 class LinkedList {
@@ -115,7 +115,7 @@ class LinkedList {
 const nodeOne = new Node(5);
 const list = new LinkedList();
 list.head = nodeOne; // {"data":5,"next":null}
-// initialize the list with this nodeOne assigned to the head -> this time when we call insertFirst, do not accidentally overwrite any data
+// -> initialize the list with this nodeOne assigned to the head -> this time when we call insertFirst, do not accidentally overwrite any data
 list.insertFirst(15);
 list; // {"head":{"data":15,"next":{"data":5,"next":null}}}
 */
@@ -135,8 +135,20 @@ class LinkedList {
   }
 
   insertFirst(data) {
-    const node = new Node(data, this.head);
-    this.head = node;
     this.head = new Node(data, this.head);
   }
+
+  size() {
+    let counter = 0;
+    let node = this.head;
+
+    while (node) {
+      counter++;
+      node = node.next; // -> We're going to look at the current node; so this is the first one, like the head node. We will look at its next property and remember the next property will be either another node or the value null. And if it's null, that means that there are no other nodes for us to evaluate. We will then take either the next node or the value null and assign it to the variable node.
+    }
+
+    return counter;
+  }
 }
+
+module.exports = { Node, LinkedList };
