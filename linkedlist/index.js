@@ -118,7 +118,6 @@ list.head = nodeOne; // {"data":5,"next":null}
 // -> initialize the list with this nodeOne assigned to the head -> this time when we call insertFirst, do not accidentally overwrite any data
 list.insertFirst(15);
 list; // {"head":{"data":15,"next":{"data":5,"next":null}}}
-*/
 
 // <77. Sizing a List>
 // <78. Solve for Size>
@@ -148,6 +147,128 @@ class LinkedList {
     }
 
     return counter;
+  }
+}
+
+// <79. Get Over Here, GetFirst!>
+// <80. Building GetFirst>
+class Node {
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  insertFirst(data) {
+    this.head = new Node(data, this.head);
+  }
+
+  size() {
+    let counter = 0;
+    let node = this.head;
+
+    while (node) {
+      counter++;
+      node = node.next;
+    }
+
+    return counter;
+  }
+
+  getFirst() {
+    return this.head;
+  }
+}
+
+// <81. Find Your Tail with GetLast>
+class Node {
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  insertFirst(data) {
+    this.head = new Node(data, this.head);
+  }
+
+  size() {
+    let counter = 0;
+    let node = this.head;
+
+    while (node) {
+      counter++;
+      node = node.next;
+    }
+
+    return counter;
+  }
+
+  getFirst() {
+    return this.head;
+  }
+}
+*/
+
+// <82. GetLast Implementation>
+class Node {
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  insertFirst(data) {
+    this.head = new Node(data, this.head);
+  }
+
+  size() {
+    let counter = 0;
+    let node = this.head;
+
+    while (node) {
+      counter++;
+      node = node.next;
+    }
+
+    return counter;
+  }
+
+  getFirst() {
+    return this.head;
+  }
+
+  getLast() {
+    // if (!this.head) {
+    //   return null;
+    // }
+
+    // let node = this.head;
+    // while (node) {
+    //   if (!node.next) {
+    //     return node;
+    //   }
+    //   node = node.next;
+    // }
+
+    let node = this.head;
+    while (node.next) node = node.next;
+    return node;
   }
 }
 
