@@ -270,7 +270,6 @@ class LinkedList {
     return node;
   }
 }
-*/
 
 // <83. Clear that List>
 // <84. Clear Solution>
@@ -326,6 +325,70 @@ class LinkedList {
 
   clear() {
     this.head = null;
+  }
+}
+*/
+
+// <85. Where's My Head, RemoveFirst?>
+// <86. Building RemoveFirst>
+class Node {
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  insertFirst(data) {
+    this.head = new Node(data, this.head);
+  }
+
+  size() {
+    let counter = 0;
+    let node = this.head;
+
+    while (node) {
+      counter++;
+      node = node.next;
+    }
+
+    return counter;
+  }
+
+  getFirst() {
+    return this.head;
+  }
+
+  getLast() {
+    // if (!this.head) {
+    //   return null;
+    // }
+
+    // let node = this.head;
+    // while (node) {
+    //   if (!node.next) {
+    //     return node;
+    //   }
+    //   node = node.next;
+    // }
+
+    let node = this.head;
+    while (node.next) node = node.next;
+    return node;
+  }
+
+  clear() {
+    this.head = null;
+  }
+
+  removeFirst() {
+    if (!this.head) return null;
+
+    return (this.head = this.head.next);
   }
 }
 
