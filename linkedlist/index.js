@@ -327,7 +327,6 @@ class LinkedList {
     this.head = null;
   }
 }
-*/
 
 // <85. Where's My Head, RemoveFirst?>
 // <86. Building RemoveFirst>
@@ -386,9 +385,97 @@ class LinkedList {
   }
 
   removeFirst() {
-    if (!this.head) return null;
+    if (!this.head) {
+      return;
+    }
 
-    return (this.head = this.head.next);
+    this.head = this.head.next;
+  }
+}
+*/
+
+// <87. Bye-Bye Tail with RemoveLast>
+// <88. RemoveLast Implementation>
+class Node {
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  insertFirst(data) {
+    this.head = new Node(data, this.head);
+  }
+
+  size() {
+    let counter = 0;
+    let node = this.head;
+
+    while (node) {
+      counter++;
+      node = node.next;
+    }
+
+    return counter;
+  }
+
+  getFirst() {
+    return this.head;
+  }
+
+  getLast() {
+    // if (!this.head) {
+    //   return null;
+    // }
+
+    // let node = this.head;
+    // while (node) {
+    //   if (!node.next) {
+    //     return node;
+    //   }
+    //   node = node.next;
+    // }
+
+    let node = this.head;
+    while (node.next) node = node.next;
+    return node;
+  }
+
+  clear() {
+    this.head = null;
+  }
+
+  removeFirst() {
+    if (!this.head) {
+      return;
+    }
+
+    this.head = this.head.next;
+  }
+
+  removeLast() {
+    if (!this.head) {
+      return;
+    }
+
+    if (!this.head.next) {
+      this.head = null;
+      return;
+    }
+    // ✍️ to check to see if we have a length of one, we could call the size method that we had previously defined
+
+    let previous = this.head;
+    let node = this.head.next;
+    while (node.next) {
+      previous = node;
+      node = node.next;
+    }
+    previous.next = null;
   }
 }
 
