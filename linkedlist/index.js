@@ -801,7 +801,6 @@ class LinkedList {
     previous.next = previous.next.next;
   }
 }
-*/
 
 // <95. Insert Anywhere with InsertAt>
 // <96. InsertAt Solution>
@@ -849,6 +848,138 @@ class LinkedList {
       }
       node = node.next;
     }
+  }
+
+  clear() {
+    this.head = null;
+  }
+
+  removeFirst() {
+    if (!this.head) {
+      return;
+    }
+
+    this.head = this.head.next;
+  }
+
+  removeLast() {
+    if (!this.head) {
+      return;
+    }
+
+    if (!this.head.next) {
+      this.head = null;
+      return;
+    }
+
+    let previous = this.head;
+    let node = this.head.next;
+    while (node.next) {
+      previous = node;
+      node = node.next;
+    }
+    previous.next = null;
+  }
+
+  insertLast(data) {
+    const last = this.getLast();
+
+    if (last) {
+      last.next = new Node(data);
+    } else {
+      this.head = new Node(data);
+    }
+  }
+
+  getAt(index) {
+    let counter = 0;
+    let node = this.head;
+    while (node) {
+      if (counter === index) {
+        return node;
+      }
+
+      counter++;
+      node = node.next;
+    }
+    return null;
+  }
+
+  removeAt(index) {
+    if (!this.head) return;
+
+    if (index === 0) {
+      this.head = this.head.next;
+      return;
+    }
+
+    const previous = this.getAt(index - 1);
+    if (!previous || !previous.next) return;
+    previous.next = previous.next.next;
+  }
+
+  insertAt(data, index) {
+    if (!this.head) {
+      this.head = new Node(data);
+      return;
+    }
+
+    if (index === 0) {
+      this.head = new Node(data, this.head);
+      return;
+    }
+
+    const previous = this.getAt(index - 1) || this.getLast();
+    // -> so if this.getAt(index - 1) returns a falsy value, then we will go into this or case, and we will instead run this line of code right here; so getLast() will be assigned to previous.
+    const node = new Node(data, previous.next);
+    // -> we will create our new node and the new node's next property will be previous.next which had been null as well.
+    previous.next = node;
+    // -> and then previous.next will be now updated to node.
+  }
+}
+*/
+
+// <97. Code Reuse in Linked Lists>
+// insertFirst(data) -> insertAt(data, 0)
+// insertLast(data) -> insertAt(data, this.size() - 1)
+// removeFirst() -> removeAt(0)
+// removeLast() -> removeAt(this.size() - 1)
+// getFirst() -> getAt(0)
+// getLast() -> getAt(this.size() - 1)
+class Node {
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  insertFirst(data) {
+    this.insertAt(data, 0);
+  }
+
+  size() {
+    let counter = 0;
+    let node = this.head;
+
+    while (node) {
+      counter++;
+      node = node.next;
+    }
+
+    return counter;
+  }
+
+  getFirst() {
+    return this.getAt(0);
+  }
+
+  getLast() {
+    return this.getAt(this.size() - 1);
   }
 
   clear() {
