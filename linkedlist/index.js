@@ -1071,3 +1071,120 @@ class LinkedList {
 }
 
 module.exports = { Node, LinkedList };
+
+// <98. List Traversal Through ForEach>
+// <100. Brushup on Generators>
+// 📎 BABEL
+
+// #1
+function* numbers() {
+  const result = 1 + 1;
+  return 20 + (yield result);
+}
+
+const generator = numbers();
+generator; // {}; so we can use this return generator object to manipulate or walk through segments of the code in here.
+generator.next(); // {"value": 2, "done": false}; so this is an object right here, that generator.next is returning.
+
+// -> when we define a generator, we call the geneartor, and call .next on the returned value. When we call .next, the code inside the generator is going to execute until a yield statement is found. When the yield statement is found, execution of that function is paused.
+generator.next(10); // {"value": 30, "done": true}
+// -> the first time I call next, generator executes all the way up to the yield statement and then it automatically returns whatever was yielded, in this case, result. The next time I call generator.next, if I pass in a value, that value will be inserted in place of the yield statment. So when I make this second call right here, this generator.next with 10, and so we then return 20 plus 10, and the result is 30 over here.
+
+// #2
+function* list() {
+  yield 1;
+  yield 2;
+  yield 3;
+  yield 4;
+  yield 5;
+}
+
+const generator = list();
+generator.next(); // {"value": 1, "done": false}
+generator.next(); // {"value": 2, "done": false}; that's going to go back into the generator on this line of code and it's going to execute again until the next yield statement is found.
+generator.next(); // {"value": 3, "done": false}
+generator.next(); // {"value": 4, "done": false}
+generator.next(); // {"value": 5, "done": false}
+generator.next(); // {"done": true}
+// -> and then at the very end, if I have no more yield statements in no return statement either, if I call next again, I get done true return.
+generator.next(); // {"done": true}
+generator.next(); // {"done": true}
+generator.next(); // {"done": true}
+
+// ✍️ so the idea here is that we can have multiple yield statements inside of a single generator
+
+// #3
+function* list() {
+  yield 1;
+  yield 2;
+  yield 3;
+  yield 4;
+  yield 5;
+}
+
+const generator = list(); // here's the generator and we create a generator, which is the return object from calling the generator function
+
+const numbers = [];
+for (let value of generator) {
+  numbers.push(value);
+}
+numbers; // [1, 2, 3, 4, 5]
+
+// ✍️ we can iterate over a generator function and for every yield statement that we have in here
+
+// #4
+function* numbers() {
+  yield 1;
+  yield 2;
+  yield* moreNumbers(); // yield* specifically means, "Hey, I'm about to pass you another generator. The next time that someone calls next on this, go into that generator and execute it until we hit a yield statement".
+  yield 6;
+  yield 7;
+}
+
+function* moreNumbers() {
+  yield 3;
+  yield 4;
+  yield 5;
+}
+
+const generator = numbers();
+
+let values = [];
+for (let value of generator) {
+  values.push(value);
+}
+values; // 1, 2, 3, 4, 5, 6, 7]
+
+// ✍️ if we create 2 generators, we can nest generators
+
+// #4
+class Tree {
+  constructor(value = null, children = []) {
+    this.value = value;
+    this.children = children;
+  }
+
+  *printValues() {
+    yield this.value; // I have a generator that right now just yields the value of the head of the tree or whichever node we're operating on here(1172).
+    for (let child of this.children) {
+      yield* child.printValues();
+    }
+    // -> if I call printValues(), if I call this generator on a single node in the tree, it will first yield that node's value(1168). The next time I call next on it, I will enter my for loop here and we can delegate to other generators. And so for each child of this top node of the head node, I will walk through its children and call printValues() on that node as well.
+  }
+}
+
+const tree = new Tree(1, [new Tree(2, [new Tree(4)]), new Tree(3)]);
+
+tree.printValues().next(); // {"value": 1, "done": false}
+// -> 🌳 but I want to iterate through the entire tree(1169)
+
+const values = [];
+for (let value of tree.printValues()) {
+  values.push(value);
+}
+values; // [1, 2, 3, 4]
+// (1182) Notice that I'm just passing in the generator here directly.
+
+// ✍️ We created a tree, at the very top or the head of the tree was a node of value 1, it had children of 2 and 3, and then the node of 2 also had a child of 4(1176). We called the head's generator of printValues() and then we iterated over it(1182). That means that we are now walking into *printValues and we execute until we hit the first yield statement(1167); so at the first yield statement, we enter the body of the for loop. We push on that value until the vaule is array(1183) and then we walk back into the generator(1167). We then start iterating over the head's children, and for each child of the head, we're going to delegate to that child's printValues function(1169). And so this is going to recurs through all the different nodes. And eventually we walk over every node in the tree(1182)
+
+// 🤔 📎 rally.coding.com
