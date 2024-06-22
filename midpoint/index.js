@@ -22,7 +22,8 @@ function midpoint(list) {
     slow = slow.next;
     fast = fast.next.next;
   }
-  // 🤔 Why can't I just write while (fast.next.next) ?
+  // 🤔 Why can't I just check while (fast.next.next) ?
+  // -> then fast.next will be null and when you call fast.next.next, it will give a null pointer exception.
 
   return slow;
 }
