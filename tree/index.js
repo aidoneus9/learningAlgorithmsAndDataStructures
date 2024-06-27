@@ -34,6 +34,12 @@ class Node {
     // this.children.push(node);
     this.children.push(new Node(data));
   }
+
+  remove(data) {
+    this.children.filter((node) => {
+      return node.data !== data;
+    });
+  }
 }
 
 class Tree {}
