@@ -21,6 +21,22 @@
 
 // <110. More on Nodes>
 // ✍️ remove(data): given some data, look at each child of the current node and remove any node with data === data
+
+// ✍️ filter
+let arr = [1, 2, 3];
+
+arr = arr.filter((element) => {
+  return element === 1;
+}); // [1]
+// -> filter does not modify the arr array, so after doing this filter call, we will assign the result to the arr
+
+// 📎 test.js
+// (17) we are creating a new node with some data 'a'
+// (18) we then add on some element 'b'
+// -> so n now has one child and that child is a node with data 'b'
+// (19) we can then make an assertion about the number of children that n has,
+// (20) or we can access that child directly by looking at the children array and getting the first element out of it; then we can say, look at the children that element has. So this would be the children of node 'b' right here; this test is just asserting to make sure that node 'b' doesn't end up with any children because we didn't actually add any in this case
+
 class Node {
   constructor(data) {
     // initialize the data variable
@@ -36,12 +52,13 @@ class Node {
   }
 
   remove(data) {
-    this.children.filter((node) => {
+    this.children = this.children.filter((node) => {
       return node.data !== data;
     });
   }
 }
 
+// <111. Tree Implementation>
 class Tree {}
 
 module.exports = { Tree, Node };
