@@ -59,6 +59,16 @@ class Node {
 }
 
 // <111. Tree Implementation>
-class Tree {}
+class Tree {
+  constructor() {
+    this.root = null; // when we first create a tree, it's going to start off with an empty root properly
+  }
+}
+// ✍️ Now, one thing that you'll notice about this tree implementation is that we did not add on, and we're not saying that we're going to add on any type of insert or remove methods to this thing like we had done previously with the linked list; with the linked list, the linked list class was really in charge of all the elements inside the linked list. Yes, the linked list had references to each subsequent element where each node had references to each subsequent element. But if we called add or remove on that thing on the linked list, it was more or less kind of obvious how we wanted to operate on the linked list. But in the case of a tree, whenever we start to want to add or remove elements from it, we have to very precisely specify which node we want to be adding or removing elements from.
+
+const node = new Node(1); // const node would be new node with some amount of data
+const tree = new Tree(); // then to create a tree and
+tree.root = node; // then we would manually update the root property of the tree
+// -> so now the tree thinks that its root node is the node we just created
 
 module.exports = { Tree, Node };
