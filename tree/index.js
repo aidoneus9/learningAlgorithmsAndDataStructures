@@ -58,6 +58,7 @@ class Node {
   }
 }
 
+/*
 // <111. Tree Implementation>
 class Tree {
   constructor() {
@@ -70,5 +71,19 @@ const node = new Node(1); // const node would be new node with some amount of da
 const tree = new Tree(); // then to create a tree and
 tree.root = node; // then we would manually update the root property of the tree
 // -> so now the tree thinks that its root node is the node we just created
+
+module.exports = { Tree, Node };
+*/
+
+// <112. Traverse By Breadth>
+class Tree {
+  constructor() {
+    this.root = null;
+  }
+}
+
+const node = new Node(1);
+const tree = new Tree();
+tree.root = node;
 
 module.exports = { Tree, Node };
