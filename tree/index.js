@@ -62,6 +62,8 @@ class Node {
 // <111. Tree Implementation>
 // <112. Traverse By Breadth>
 // <113. Solving for Breadth-First Traversal>
+// <114. Depth First Traversal>
+
 class Tree {
   constructor() {
     this.root = null; // when we first create a tree, it's going to start off with an empty root properly
@@ -81,6 +83,16 @@ class Tree {
       fn(node); // 🤔
     }
   }
+
+  traverseDF(fn) {
+    const arr = [this.root];
+    while (arr.length) {
+      const node = arr.shift();
+
+      arr.unshift(...node.children);
+      fn(node);
+    }
+  }
 }
 
 const node = new Node(1); // const node would be new node with some amount of data
@@ -93,19 +105,3 @@ module.exports = { Tree, Node };
 // (73) as long as array.length is a truthy value; so as soon as our array is empty, as soon as it has a length of zero, that means there's nothing else for us to do
 // (74) shift() method will take out the first element of the array
 // (77) ⚠️ Now the important thing to keep in mind is that we cannot say simply node.children because node.children is an array; so if we push an array into an array, we would then have a nested array
-
-// <114. Depth First Traversal>
-class Tree {
-  constructor() {
-    this.root = null; // when we first create a tree, it's going to start off with an empty root properly
-  }
-
-  traverseDF(fn) {}
-}
-
-const node = new Node(1); // const node would be new node with some amount of data
-const tree = new Tree(); // then to create a tree and
-tree.root = node; // then we would manually update the root property of the tree
-// -> so now the tree thinks that its root node is the node we just created
-
-module.exports = { Tree, Node };
