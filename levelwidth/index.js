@@ -15,11 +15,25 @@
 
 // <116. Level Width Declaration>
 // ⚠️ You are not going to be using some pre-built traversal function. Instead, you are going to have to write a function that will traverse through the tree and do some work during that traversal.
-function levelWidth(root) {}
-
-module.exports = levelWidth;
 
 // <117. Measuring Level Width>
-function levelWidth(root) {}
+function levelWidth(root) {
+  const arr = [root, "s"];
+  const counters = [0];
+
+  while (arr.length > 1) {
+    const node = arr.shift();
+
+    if (node === "s") {
+      counters.push(0);
+      arr.push("s");
+    } else {
+      arr.push(...node.children);
+      counters[counters.length - 1]++;
+    }
+  }
+
+  return counters;
+}
 
 module.exports = levelWidth;
