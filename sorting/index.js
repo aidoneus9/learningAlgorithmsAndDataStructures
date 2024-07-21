@@ -68,8 +68,32 @@ function selectionSort(arr) {
 // (55) the indexOfMin is going to point to the absolute lowest value right now
 // (55) ~ (57) if we put together a function to encapsulate the swapping logic right here, and if we somehow turn this thing into just swap array at indexOfMin and i or whatever we want to do, that would turn this into a very brief little solution right here(58)
 
+// <135. MergeSort Overview>
+// 1. merge -> 2. mergeSort
+
+// <136. The Merge Function>
+// 📌 merge
+// ✍️ The general purpose of the merger function is to take two separate sorted arrays and merge them together into one sorted array
+// 📌 merger pseudocode
+// Create 'results' array
+// While there are still elements in BOTH arrays
+//   If the first element the left half is less than first in right half
+//     'shift' the element from left into a 'result' arr
+//   else
+//     'shift' the element from right into a 'result' arr
+// Take everything from the array that still has stuff in it and put in in results
+
 function mergeSort(arr) {}
 
-function merge(left, right) {}
+function merge(left, right) {
+  const results = [];
+
+  while (left.length && right.length) {
+    if (left[0] < right[0]) results.push(left.shift());
+    else results.push(right.shift());
+  }
+
+  return [...results, ...left, ...right];
+}
 
 module.exports = { bubbleSort, selectionSort, mergeSort, merge };
