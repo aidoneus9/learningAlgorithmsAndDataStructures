@@ -83,7 +83,22 @@ function selectionSort(arr) {
 //     'shift' the element from right into a 'result' arr
 // Take everything from the array that still has stuff in it and put in in results
 
-function mergeSort(arr) {}
+// <137. More on MergeSort>
+// <138. I Don't Like Recursion, But Let's Do This Anyways>
+// ✍️ Our goal for mergeSort is to recursively subdivide this input array. So we're going to split this thing into two and then we're going to take both the halves and pass them back into mergeSort.
+// ✍️ first check: if the array has one element inside of it; because if the array only has one element, that means that we cannot subdivide this array anymore
+// ✍️ divide the array into two equal halves -> determine the center point of the array (remember how slice works!)
+// -> Now, if we ran this function right now, if we executed this code, I think you would agree with me that we are going to recursively subdivide an input array into separate equal-length halves until eventually both those halves have a length of one. And at that point, we would just return the array and we will stop trying to divide it into any further havles.
+
+function mergeSort(arr) {
+  if (arr.length === 1) return arr;
+
+  const center = Math.floor(arr.length / 2);
+  const left = arr.slice(0, center);
+  const right = arr.slice(center);
+
+  return merge(mergeSort(left), mergeSort(right));
+}
 
 function merge(left, right) {
   const results = [];
