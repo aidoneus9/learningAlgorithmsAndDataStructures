@@ -48,7 +48,7 @@ function selectionSort(arr) {
     let indexOfMin = i;
 
     // Validate that assumption
-    for (let j = j + 1; j < arr.length; j++) {
+    for (let j = i + 1; j < arr.length; j++) {
       if (arr[j] < arr[indexOfMin]) {
         indexOfMin = j;
       }
